@@ -1,4 +1,4 @@
-package dz;
+package tracker;
 
 import java.util.Scanner;
 
