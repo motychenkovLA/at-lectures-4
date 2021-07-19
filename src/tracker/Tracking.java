@@ -1,4 +1,4 @@
-package tracking;
+package tracker;
 
 import java.util.Scanner;
 
