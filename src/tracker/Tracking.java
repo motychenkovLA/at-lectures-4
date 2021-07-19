@@ -11,12 +11,7 @@ public class Tracking {
         String criticalityDefect = scanner.nextLine();
         System.out.println("Введите ожидаемый срок исполнения: ");
         int workMoreWeek = scanner.nextInt();
-        String willTakeMoreWeek;
-        if ( workMoreWeek > 5 ){
-            willTakeMoreWeek = "Да";
-        } else {
-            willTakeMoreWeek = "Нет";
-        }
+        boolean willTakeMoreWeek = workMoreWeek > 5;
 
 
         System.out.println("\n\rРезюме дефекта:"
