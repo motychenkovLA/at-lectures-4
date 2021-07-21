@@ -4,51 +4,58 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String komanda = "";
-        int schetchicDefectov = 0;
-        int schetchicVyvoda = 0;
-        int[] defectsNomer = new int[10];
-        String[] defectsRezyme = new String[10];
-        String[] defectsKritichnost = new String[10];
-        int[] defectsDaysToFix = new int[10];
-        while (!komanda.equals("quit")) {
+        String team = "";
+        int defectCounter = 0;
+        final int LIMIT = 10;
+        int[] defectNumber = new int[LIMIT];
+        String[] defectSummary = new String[LIMIT];
+        String[] defectСriticality = new String[LIMIT];
+        String exitPoint = "";
+        int[] defectDaysToFix = new int[LIMIT];
+        Scanner sc = new Scanner(System.in);
+        while (exitPoint.equals("")) {
             System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). \n 2.Вывести список дефектов (Введите list). \n 3.Выйти из программы (Введите quit).\n");
-            Scanner sc = new Scanner(System.in);
-            komanda = sc.nextLine();
-            switch (komanda) {
+            team = sc.nextLine();
+            switch (team) {
                 case "add":
-                    if (schetchicDefectov == 10) {
+                    if (defectCounter == LIMIT) {
                         System.out.println("Не возможно добавить больше 10 дефектов.\n");
                     } else {
-                        defectsNomer[schetchicDefectov] = schetchicDefectov;  //Номер
+                        defectNumber[defectCounter] = defectCounter;
                         System.out.println("\nВведите резюме дефекта.");
-                        defectsRezyme[schetchicDefectov] = sc.nextLine();
+                        defectSummary[defectCounter] = sc.nextLine();
                         System.out.println("\nВведите критичность дефекта. Варианты: Блокирующий, Высокий, Средний, Низкий.");
-                        defectsKritichnost[schetchicDefectov] = sc.nextLine();
+                        defectСriticality[defectCounter] = sc.nextLine();
                         System.out.println("\nВведите ожидаемое колличество дней на исправление дефекта.");
-                        defectsDaysToFix[schetchicDefectov] = sc.nextInt();
+                        defectDaysToFix[defectCounter] = sc.nextInt();
                         sc.nextLine();
-                        schetchicDefectov++;
+                        defectCounter++;
                         System.out.println("Дефект сохранен.\n");
                     }
                     break;
                 case "list":
                     System.out.println("Заведенные дефекты:");
-                    if (schetchicDefectov==0) {
+                    if (defectCounter == 0) {
                         System.out.println("Дефекты отсутствуют.\n");
                     } else {
-                    while (schetchicVyvoda < schetchicDefectov) {
-                        System.out.println("-----------------------------------------------------");
-                        System.out.println("Номер: " + defectsNomer[schetchicVyvoda] + ".\nРезюме: " + defectsRezyme[schetchicVyvoda] + ".\nКритичность: " + defectsKritichnost[schetchicVyvoda] + ".\nКолличество дней на исправление: " + defectsDaysToFix[schetchicVyvoda]);
-                        schetchicVyvoda++;
+                        int inputСounter = 0;
+                        while (inputСounter < defectCounter) {
+                            System.out.println("-----------------------------------------------------");
+                            System.out.println("Номер: " + defectNumber[inputСounter] +
+                                    ".\nРезюме: " + defectSummary[inputСounter] +
+                                    ".\nКритичность: " + defectСriticality[inputСounter] +
+                                    ".\nКолличество дней на исправление: " + defectDaysToFix[inputСounter]);
+                            inputСounter++;
+                        }
+                        System.out.println("-----------------------------------------------------\n");
+                        System.out.println();
+                        inputСounter = 0;
                     }
-                    System.out.println("-----------------------------------------------------\n");
-                    System.out.println();
-                    schetchicVyvoda = 0;}
                     break;
 
                 case "quit":
                     System.out.println("Выход из программы.");
+                    exitPoint = "exit";
                     break;
 
                 default:
