@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class BugTracking {
     public static void main(String[] args) {
+
         System.out.println("Введите описание дефекта:");
         Scanner str = new Scanner(System.in);
         String bug_report;
