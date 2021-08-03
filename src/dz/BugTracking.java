@@ -4,25 +4,55 @@ import java.util.Scanner;
 
 public class BugTracking {
     public static void main(String[] args) {
-
-        final int DAYS_IN_WEEK = 5;
-
         Scanner scanner = new Scanner(System.in);
+        String[][] db = new String[10][4];
 
-        System.out.println("Введите описание дефекта:");
-        String bugReport = scanner.nextLine();
+        boolean menu = true;
+        int number = 0;
 
-        System.out.println("\nВведите критичность дефекта:\nBlocker\nCritical\nMajor\nTrivial");
-        String critical = scanner.nextLine();
+        while (menu) {
+            System.out.println("\nВведите команду: \nadd - добавить новый дефект" +
+                    "\nlist - вывести весь список дефектов" +
+                    "\nquit - Главное меню");
+            String input = scanner.nextLine();
+            menu = "add".equals(input);
 
-        System.out.println("\nВведите ожидаемое количество дней на исправление дефекта:");
-        int termdays = scanner.nextInt();
 
-        boolean isToManyWeek = termdays > DAYS_IN_WEEK;
+            switch (input) {
+                case "add": {
+                    System.out.println("\nВведите описание дефекта:");
+                    String bugReport = scanner.nextLine();
 
-        System.out.print(bugReport + " | ");
-        System.out.print(critical + " | ");
-        System.out.print(termdays + " | ");
-        System.out.print("займет больше рабочей недели " + "("+(isToManyWeek)+")");
+                    System.out.println("\nВведите критичность дефекта:\nBlocker\nCritical\nMajor\nTrivial");
+                    String critical = scanner.nextLine();
+
+                    System.out.println("\nВведите ожидаемое количество дней на исправление дефекта:");
+                    String termDays = scanner.nextLine();
+
+
+                    db[number][1] = bugReport;
+                    db[number][2] = critical;
+                    db[number][3] = termDays + " - дней на исправление";
+                    number++;
+                    break;
+                }
+                case "list":
+                    //Вывести данные массива в консоль
+                    for (int i = 0; i < 10; i++) {
+                        for (int j = 0; j < 4; j++) {
+                            //String stringArraysDB = Arrays.toString(db);
+                            System.out.print(db[i][j] + " | ");
+                        }
+                        System.out.println("");
+                    }
+
+                case "quit":
+                    menu = true;
+            }
+
+
+        }
+
+
     }
 }
