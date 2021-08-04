@@ -49,10 +49,6 @@ public class BugTracking {
                 case "quit":
                     menu = true;
             }
-
-
         }
-
-
     }
 }
