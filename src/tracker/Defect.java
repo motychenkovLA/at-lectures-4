@@ -17,9 +17,8 @@ public class Defect {
     }
 
     public String getInfo() {
-        String defectInfo = ("\nНомер: " + this.id + "\nРезюме: " + this.resume + "\nСерьезность: "
+        return ("\nНомер: " + this.id + "\nРезюме: " + this.resume + "\nСерьезность: "
                 + this.criticality + "\nКоличество дней на исправление: " + this.daysToFix + "\n");
-        return defectInfo;
     }
 
     public long getId() {
