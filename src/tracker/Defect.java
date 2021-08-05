@@ -1,45 +1,37 @@
 package tracker;
 
-import java.util.Scanner;
-
 public class Defect {
-    long id;
-    String defectResume;
-    String defectCriticality;
-    int daysToFix;
+    private static int defectCounter = 0;
+    private long id;
+    private String resume;
+    private String criticality;
+    private int daysToFix;
 
-    public Defect(long id) {
-        this.id = id;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println();
-        System.out.println("Введите резюме дефекта:");
-        this.defectResume = scanner.nextLine();
-        System.out.println("Введите критичность дефекта (очень высокий, высокий, средний, низкий, очень низкий):");
-        this.defectCriticality = scanner.nextLine();
-        System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
-        this.daysToFix = scanner.nextInt();
-        scanner.nextLine();
+
+    public Defect(String resume, String criticality, int daysToFix) {
+        this.id = defectCounter;
+        this.resume = resume;
+        this.criticality = criticality;
+        this.daysToFix = daysToFix;
+        defectCounter++;
     }
 
-    void list() {
-        System.out.println();
-        System.out.println("Номер: " + this.id);
-        System.out.println("Резюме: " + this.defectResume);
-        System.out.println("Серьезность: " + this.defectCriticality);
-        System.out.println("Количество дней на исправление: " + this.daysToFix);
-        System.out.println();
+    public String getInfo() {
+        String defectInfo = ("\nНомер: " + this.id + "\nРезюме: " + this.resume + "\nСерьезность: "
+                + this.criticality + "\nКоличество дней на исправление: " + this.daysToFix + "\n");
+        return defectInfo;
     }
 
     public long getId() {
         return id;
     }
 
-    public String getDefectResume() {
-        return defectResume;
+    public String getResume() {
+        return resume;
     }
 
-    public String getDefectCriticality() {
-        return defectCriticality;
+    public String getCriticality() {
+        return criticality;
     }
 
     public int getDaysToFix() {
@@ -50,15 +42,23 @@ public class Defect {
         this.id = id;
     }
 
-    public void setDefectResume(String defectResume) {
-        this.defectResume = defectResume;
+    public void setResume(String resume) {
+        this.resume = resume;
     }
 
-    public void setDefectCriticality(String defectCriticality) {
-        this.defectCriticality = defectCriticality;
+    public void setCriticality(String criticality) {
+        this.criticality = criticality;
     }
 
     public void setDaysToFix(int daysToFix) {
         this.daysToFix = daysToFix;
+    }
+
+    public static int getDefectCounter() {
+        return defectCounter;
+    }
+
+    public static void setDefectCounter(int defectCounter) {
+        Defect.defectCounter = defectCounter;
     }
 }
