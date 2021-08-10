@@ -2,13 +2,30 @@ package tracker;
 
 
 public class Defect {
+    private static long maxId;
     private long id;
     private String defectSummary;
     private String criticalityDefect;
     private int workMoreWeek;
     private boolean willTakeMoreWeek;
 
+    static {
+        maxId = -1;
+    }
+
+    {
+        maxId++;
+    }
+
     public Defect() {
+    }
+
+    public Defect(String defectSummary, String criticalityDefect, int workMoreWeek) {
+        this.id = maxId;
+        this.defectSummary = defectSummary;
+        this.criticalityDefect = criticalityDefect;
+        this.workMoreWeek = workMoreWeek;
+        willTakeMoreWeek = workMoreWeek > 5;
     }
 
     public Defect(long id, String defectSummary, String criticalityDefect, int workMoreWeek) {
@@ -39,15 +56,12 @@ public class Defect {
         return id;
     }
 
-    public void setDefectSummary(String defectSummary) {
-        this.defectSummary = defectSummary;
-    }
-
-    public void setCriticalityDefect(String criticalityDefect) {
-        this.criticalityDefect = criticalityDefect;
-    }
-
-    public void setWorkMoreWeek(int workMoreWeek) {
-        this.workMoreWeek = workMoreWeek;
+    @Override
+    public String toString() {
+        return "\n\rИдентификатор дефекта:" + id
+                +"\n\rРезюме дефекта:" + defectSummary
+                + "\n\rкритичность дефекта: " + criticalityDefect
+                + "\n\rожидаемый срок исполнения: " + workMoreWeek
+                + "\n\rЗаймет больше рабочей недели? " + willTakeMoreWeek + "\n\r";
     }
 }
