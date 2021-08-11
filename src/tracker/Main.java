@@ -3,17 +3,16 @@ package tracker;
 import java.util.Scanner;
 
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private final static int REPOSITORY_SIZE = 3;
+    private static Repository repository = new Repository(REPOSITORY_SIZE);
+
     public static void main(String[] args) {
         boolean keepRunning = true;
-        Repository repository = createRepository();
         while (keepRunning) {
             switch (getCommand()) {
                 case "add":
-                    if (Defect.getDefectCounter() == repository.getDefectsList().length) {
-                        System.out.println("\nПревышено количество дефектов. Количество дефектов, которые могут храниться в репозитории:" + repository.getDefectsList().length);
-                    } else {
-                        repository.add(createDefect());
-                    }
+                    addDefect();
                     break;
                 case "list":
                     System.out.println();
@@ -32,14 +31,12 @@ public class Main {
     }
 
     static String getCommand() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\nГлавное меню:\n1.Добавить новый дефект (Введите \"add\"),\n2.Вывести список дефектов (Введите \"list\"),\n3.Выйти из программы (Введите \"quit\")\n");
+        System.out.println("Главное меню:\n1.Добавить новый дефект (Введите \"add\"),\n2.Вывести список дефектов (Введите \"list\"),\n3.Выйти из программы (Введите \"quit\")\n");
         System.out.println("Введите команду:");
         return scanner.nextLine();
     }
 
     static Defect createDefect() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println();
         System.out.println("Введите резюме дефекта:");
         String resume = scanner.nextLine();
@@ -51,13 +48,13 @@ public class Main {
         return new Defect(resume, criticality, daysToFix);
     }
 
-    static Repository createRepository() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Создание репозитория. Введите количество дефектов, которые могут храниться в репозитории:");
-        int defectLimit = scanner.nextInt();
-        scanner.nextLine();
-        Repository repository = new Repository(defectLimit);
-        System.out.println("Репозиторий создан");
-        return repository;
+    static void addDefect() {
+        if (!repository.isFull()) {
+            repository.add(createDefect());
+        } else {
+            System.out.println("Превышено количество дефектов. Количество дефектов, которые могут храниться в репозитории: " + REPOSITORY_SIZE);
+            System.out.println();
+        }
     }
+
 }
