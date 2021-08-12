@@ -45,7 +45,25 @@ public class Main {
         System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
         int daysToFix = scanner.nextInt();
         scanner.nextLine();
-        return new Defect(resume, criticality, daysToFix);
+        System.out.println("Выберите тип вложения: \n1.Комментарий (Введите \"note\"),\n2.Ссылка на другой дефект (Введите \"link\")");
+        Attachment attachment = new Attachment();
+        switch (scanner.nextLine()) {
+            case "note":
+                System.out.println("Введите комментарий:");
+                attachment = new CommentAttachment(scanner.nextLine());
+                System.out.println();
+                break;
+            case "link":
+                System.out.println("Введите ссылку на другой дефект:");
+                attachment = new DefectAttachment(scanner.nextInt());
+                scanner.nextLine();
+                System.out.println();
+                break;
+            default:
+                System.out.println("Команда не распознана.Комментарий или ссылка на другой дефект не добавлены\n");
+                break;
+        }
+        return new Defect(resume, criticality, daysToFix, attachment);
     }
 
     static void addDefect() {
