@@ -28,14 +28,14 @@ public class Repository {
     }
 
     public boolean isFull() {
-        return defectCount == repositorySize;
+        return defectCount >= repositorySize;
     }
 
     public Defect[] getDefectsList() {
         return defectsList;
     }
 
-    public void setDefectsList(Defect[] defectsList) {
-        this.defectsList = defectsList;
+    public int getDefectCount() {
+        return defectCount;
     }
 }
