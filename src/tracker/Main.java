@@ -8,10 +8,7 @@ public class Main {
         boolean keepRunning = true;
         String menuSelection = "";
         int enumeratorDef = 0;
-        String[] errorSummary = new String[LIMIT_DEF];
-        String[] errorCriticality = new String[LIMIT_DEF];
-        int[] fixDays = new int[LIMIT_DEF];
-
+        Defect[] errorList = new Defect[LIMIT_DEF];
         Scanner scanner = new Scanner(System.in);
 
         while (keepRunning) {
@@ -24,14 +21,17 @@ public class Main {
                     } else {
 
                         System.out.println("Резюме дефекта");
-                        errorSummary[enumeratorDef] = scanner.nextLine();
+                        String errorSummary = scanner.nextLine();
 
                         System.out.println("Ввести критичность дефекта из предложенных вариантов: Trivial, Minor, Major, Critical, Blocker");
-                        errorCriticality[enumeratorDef] = scanner.nextLine();
+                        String errorCriticality = scanner.nextLine();
 
                         System.out.println("Ввести кол-во дней на исправление дефекта");
-                        fixDays[enumeratorDef] = scanner.nextInt();
+                        int fixDays = scanner.nextInt();
                         scanner.nextLine();
+
+                        System.out.println("Дефект сохранен");
+                        errorList[enumeratorDef] = new Defect(enumeratorDef,errorSummary,errorCriticality,fixDays);
 
                         enumeratorDef++;
                         break;
@@ -44,17 +44,17 @@ public class Main {
                     } else {
                         System.out.println();
                         for (int i=0; i < enumeratorDef; i++) {
-                            System.out.println("Номер дефекта: " + i);
-                            System.out.println("Резюме дефекта: " + errorSummary[i]);
-                            System.out.println("Критичность дефекта: " + errorCriticality[i]);
-                            System.out.println("Количество дней на исправление: " + fixDays[i]);
-
+                            System.out.println(errorList[i].list());
                         }
                     }
                     break;
                 case "quit":
                     System.out.println("Выход из меню");
                     keepRunning=false;
+                    break;
+
+                default:
+                    System.out.println("Команда не распознана. Попробуйте снова.");
                     break;
 
             }
