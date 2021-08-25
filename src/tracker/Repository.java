@@ -8,15 +8,13 @@ public class Repository {
         return index;
     }
 
-
-
     public Repository(int length) {
         this.defects = new Defect[length];
         index = 0;
     }
 
     public void add(Defect defect){
-        defects[(int) defect.getId()] = defect;
+        defects[index] = defect;
         index++;
     }
 

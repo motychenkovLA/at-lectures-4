@@ -8,6 +8,7 @@ public class Defect {
     private String criticalityDefect;
     private int workMoreWeek;
     private boolean willTakeMoreWeek;
+    private Attachment attachment;
 
     static {
         maxId = -1;
@@ -19,7 +20,7 @@ public class Defect {
 
     public Defect() {
     }
-
+    //Конструктор для задания 5
     public Defect(String defectSummary, String criticalityDefect, int workMoreWeek) {
         this.id = maxId;
         this.defectSummary = defectSummary;
@@ -27,13 +28,21 @@ public class Defect {
         this.workMoreWeek = workMoreWeek;
         willTakeMoreWeek = workMoreWeek > 5;
     }
-
+    //Конструктор для задания 4
     public Defect(long id, String defectSummary, String criticalityDefect, int workMoreWeek) {
         this.id = id;
         this.defectSummary = defectSummary;
         this.criticalityDefect = criticalityDefect;
         this.workMoreWeek = workMoreWeek;
         willTakeMoreWeek = workMoreWeek > 5;
+    }
+    //Конструктор для задания 6
+    public Defect(String defectSummary, String criticalityDefect, int workMoreWeek, Attachment attachment) {
+        this.id = maxId;
+        this.defectSummary = defectSummary;
+        this.criticalityDefect = criticalityDefect;
+        this.workMoreWeek = workMoreWeek;
+        this.attachment = attachment;
     }
 
     public boolean getWillTakeMoreWeek() {
@@ -59,9 +68,10 @@ public class Defect {
     @Override
     public String toString() {
         return "\n\rИдентификатор дефекта:" + id
-                +"\n\rРезюме дефекта:" + defectSummary
+                + "\n\rРезюме дефекта:" + defectSummary
                 + "\n\rкритичность дефекта: " + criticalityDefect
                 + "\n\rожидаемый срок исполнения: " + workMoreWeek
-                + "\n\rЗаймет больше рабочей недели? " + willTakeMoreWeek + "\n\r";
+                + "\n\rЗаймет больше рабочей недели? " + willTakeMoreWeek
+                + "\n\rВложение:\n\r" + attachment.asString();
     }
 }
