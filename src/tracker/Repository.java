@@ -1,12 +1,15 @@
 package tracker;
 
 public class Repository {
-    private final Defect[] defectList;
+    private Defect[] defectList;
+    private int repositorySize;
     private int inputCounter = 0;
     static int counter = 0;
 
-    public Repository(int LIMIT) {
-        this.defectList = new Defect[LIMIT];
+    public Repository(int repositorySize) {
+        this.defectList = new Defect[repositorySize];
+        this.repositorySize = repositorySize;
+
     }
 
     void add(Defect defect) {
@@ -14,12 +17,12 @@ public class Repository {
         counter++;
     }
 
-    String getAllDefect() {
+    String getAll() {
         StringBuilder list = new StringBuilder();
-        if (getDefectCounter() == 0) {
+        if (counter == 0) {
             list = new StringBuilder("Дефекты отсутствуют.\n");
         } else {
-            while (inputCounter < getDefectCounter()) {
+            while (inputCounter < counter) {
                 list.append(defectList[inputCounter].getInfoOfDefect());
                 inputCounter++;
             }
@@ -28,11 +31,14 @@ public class Repository {
         return list.toString();
     }
 
+    public boolean isFull() {
+        return counter == repositorySize;
+    }
+
     public Defect[] getDefectsList() {
         return defectList;
     }
-
-    public static int getDefectCounter() {
-        return counter;
+    public void setDefectsList(Defect[] defectsList) {
+        this.defectList = defectList;
     }
 }

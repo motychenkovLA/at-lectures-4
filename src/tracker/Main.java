@@ -4,31 +4,42 @@ import java.util.Scanner;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
+    private static final int REPO_SIZE = 10;
+    private static Repository repository = new Repository(REPO_SIZE);
 
     public static void main(String[] args) {
-        boolean exitProgram;
-        exitProgram = true;
-        Repository repository = createRepository();
+        boolean continueProgram;
+        continueProgram = true;
 
-        while (exitProgram) {
+        while (continueProgram) {
             System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). \n 2.Вывести список дефектов (Введите list). \n 3.Выйти из программы (Введите quit).\n");
             String transition;
             transition = sc.nextLine();
             switch (transition) {
                 case "add":
-                    if (Repository.getDefectCounter() == repository.getDefectsList().length) {
-                        System.out.println("Нельзя добавить больше " + repository.getDefectsList().length + " дефектов.\n");
+                    System.out.println("\nВведите резюме дефекта.");
+                    String summary = sc.nextLine();
+                    System.out.println("\nВведите критичность дефекта.");
+                    System.out.println(" 1. Blocker \n 2. Critical \n 3. Major \n 4. Minor \n 5. Trivial \n ");
+                    String priority = sc.nextLine();
+                    System.out.println("\nВведите ожидаемое колличество дней на исправление дефекта.");
+                    int leadTime = sc.nextInt();
+                    sc.nextLine();
+                    System.out.println("Дефект сохранен.\n");
+                    if (!repository.isFull()) {
+                        repository.add(new Defect(summary, priority, leadTime));
                     } else {
-                        repository.add(create());
-                    }
+                        System.out.println("Превышено количество дефектов. Количество дефектов, которые могут храниться в репозитории: " + REPO_SIZE);
+                        System.out.println();
+                    };
                     break;
                 case "list":
-                    System.out.println(repository.getAllDefect());
+                    System.out.println(repository.getAll());
                     break;
 
                 case "quit":
                     System.out.println("Выход из программы");
-                    exitProgram = false;
+                    continueProgram = false;
                     break;
 
                 default:
@@ -38,34 +49,6 @@ public class Main {
         }
 
 
-    }
-
-    static Defect create() {
-        System.out.println("\nВведите резюме дефекта.");
-        String summary = sc.nextLine();
-        System.out.println("\nВведите критичность дефекта.");
-        System.out.println(" 1. Blocker \n 2. Critical \n 3. Major \n 4. Minor \n 5. Trivial \n ");
-        String criticality = sc.nextLine();
-        System.out.println("\nВведите ожидаемое колличество дней на исправление дефекта.");
-        int leadTime = sc.nextInt();
-        sc.nextLine();
-        System.out.println("Дефект сохранен.\n");
-        return new Defect(summary, criticality, leadTime);
-    }
-
-    static Repository createRepository() {
-        System.out.println("\nЗадайте максимальное колличество дефектов, которые будут храниться");
-        int LimitOfDefects = sc.nextInt();
-        sc.nextLine();
-        while (LimitOfDefects < 1) {
-            System.out.println("\nНе понятно. Попробуй снова.");
-            LimitOfDefects = sc.nextInt();
-            sc.nextLine();
         }
-        final int LIMIT = LimitOfDefects;
-        Repository repository = new Repository(LIMIT);
-        System.out.println("\nМаксимальное колличество дефектов в репозитории: " + LIMIT + ".\n");
-        return repository;
-    }
-}
 
+}
