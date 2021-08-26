@@ -26,12 +26,32 @@ public class Main {
                     int leadTime = sc.nextInt();
                     sc.nextLine();
                     System.out.println("Дефект сохранен.\n");
+                    System.out.println("Выберите тип вложения: \n1.Комментарий (Введите \"comment\"),\n2.Ссылка на другой дефект (Введите \"link\")");
+                    Attachment attachment = new Attachment();
+                    Scanner scanner = new Scanner(System.in);
+                    switch (scanner.nextLine()) {
+                        case "comment":
+                            System.out.println("Введите комментарий:");
+                            attachment = new CommentAttachment(scanner.nextLine());
+                            System.out.println();
+                            break;
+                        case "link":
+                            System.out.println("Введите ссылку на другой дефект:");
+                            attachment = new DefectAttachment(scanner.nextInt());
+                            scanner.nextLine();
+                            System.out.println();
+                            break;
+                        default:
+                            System.out.println("Не понятно. Попробуй снова.\n");
+                            break;
+                    }
                     if (!repository.isFull()) {
-                        repository.add(new Defect(summary, priority, leadTime));
+                        repository.add(new Defect(summary, priority, leadTime, attachment));
                     } else {
                         System.out.println("Превышено количество дефектов. Количество дефектов, которые могут храниться в репозитории: " + REPO_SIZE);
                         System.out.println();
-                    };
+                    }
+                    ;
                     break;
                 case "list":
                     System.out.println(repository.getAll());
@@ -49,6 +69,6 @@ public class Main {
         }
 
 
-        }
+    }
 
 }

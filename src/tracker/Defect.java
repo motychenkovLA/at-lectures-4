@@ -6,20 +6,23 @@ public class Defect {
     private String summary;
     private String priority;
     private int leadTime;
+    private Attachment attachment;
 
-    public Defect(String summary, String priority, int leadTime) {
+
+    public Defect(String summary, String priority, int leadTime, Attachment attachment) {
         this.id = counter;
         this.priority = priority;
         this.summary = summary;
         this.leadTime = leadTime;
+        this.attachment = attachment;
         counter++;
     }
 
     public String getInfoOfDefect() {
         return "\n*******************************" +
-            "\nНомер дефекта: " + this.id + "\nРезюме дефекта: " + this.summary +
+                "\nНомер дефекта: " + this.id + "\nРезюме дефекта: " + this.summary +
                 "\nСерьезность: " + this.priority + "\nКоличество дней на исправление: " +
-                this.leadTime;
+                this.leadTime + "\n" + attachment.asString() + "\n";
 
     }
 
@@ -43,6 +46,10 @@ public class Defect {
         return leadTime;
     }
 
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
     public static void setCounter(int counter) {
         Defect.counter = counter;
     }
@@ -63,4 +70,7 @@ public class Defect {
         this.leadTime = leadTime;
     }
 
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
+    }
 }

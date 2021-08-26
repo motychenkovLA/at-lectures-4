@@ -38,6 +38,7 @@ public class Repository {
     public Defect[] getDefectsList() {
         return defectList;
     }
+
     public void setDefectsList(Defect[] defectsList) {
         this.defectList = defectList;
     }
