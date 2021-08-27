@@ -1,6 +1,7 @@
 package tracker;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Main {
     private static final Scanner sc = new Scanner(System.in);
@@ -12,16 +13,33 @@ public class Main {
         continueProgram = true;
 
         while (continueProgram) {
-            System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). \n 2.Вывести список дефектов (Введите list). \n 3.Выйти из программы (Введите quit).\n");
+            System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). \n 2.Вывести список дефектов (Введите list). \n 3.Изменить статус дефекта (Введите change) \n 4.Выйти из программы (Введите quit).\n");
             String transition;
             transition = sc.nextLine();
             switch (transition) {
                 case "add":
                     System.out.println("\nВведите резюме дефекта.");
                     String summary = sc.nextLine();
-                    System.out.println("\nВведите критичность дефекта.");
-                    System.out.println(" 1. Blocker \n 2. Critical \n 3. Major \n 4. Minor \n 5. Trivial \n ");
-                    String priority = sc.nextLine();
+                    System.out.println("Введите критичность дефекта: highest, high, medium, low");
+                    Priority priority;
+                    switch (sc.nextLine()) {
+                        case "highest":
+                            priority = Priority.HIGHEST;
+                            break;
+                        case "high":
+                            priority = Priority.HIGH;
+                            break;
+                        case "medium":
+                            priority = Priority.MEDIUM;
+                            break;
+                        case "low":
+                            priority = Priority.LOW;
+                            break;
+                        default:
+                            priority = Priority.DEFAULT;
+                            System.out.println("Команда не распознана. Критичность не указана\n");
+                            break;
+                    }
                     System.out.println("\nВведите ожидаемое колличество дней на исправление дефекта.");
                     int leadTime = sc.nextInt();
                     sc.nextLine();
@@ -56,7 +74,43 @@ public class Main {
                 case "list":
                     System.out.println(repository.getAll());
                     break;
+                case "change":
+                    System.out.println("Введите ИД дефекта:");
+                    int id = sc.nextInt();
+                    sc.nextLine();
+                    if (id < repository.getDefectCount()) {
+                        System.out.println("Текущий статус : " + repository.getDefectsList()[id].getStatus() + "\nВведите новый статус: " + Arrays.toString(Status.values()));
+                        switch (sc.nextLine()) {
+                            case "OPEN":
+                                repository.getDefectsList()[id].setStatus(Status.OPEN);
+                                System.out.println("Статус дефекта успешно изменен");
+                                break;
+                            case "ASSIGNED":
+                                repository.getDefectsList()[id].setStatus(Status.ASSIGNED);
+                                System.out.println("Статус дефекта успешно изменен");
+                                break;
+                            case "FIXED":
+                                repository.getDefectsList()[id].setStatus(Status.FIXED);
+                                System.out.println("Статус дефекта успешно изменен");
+                                break;
+                            case "VERIFIED":
+                                repository.getDefectsList()[id].setStatus(Status.VERIFIED);
+                                System.out.println("Статус дефекта успешно изменен");
+                                break;
+                            case "CLOSED":
+                                repository.getDefectsList()[id].setStatus(Status.CLOSED);
+                                System.out.println("Статус дефекта успешно изменен");
+                                break;
+                            default:
+                                System.out.println("Команда не распознана. Статус не изменен\n");
+                                break;
+                        }
+                    } else {
+                        System.out.println("Дефект не найден");
+                    }
+                    System.out.println();
 
+                    break;
                 case "quit":
                     System.out.println("Выход из программы");
                     continueProgram = false;
