@@ -5,13 +5,14 @@ public class Defect {
     private final String summary;
     private final String criticality;
     private final int daysToFix;
+    private final Attachment attachment;
 
-    public Defect(String summary, String criticality, int daysToFix) {
+    public Defect(String summary, String criticality, int daysToFix, Attachment attachment) {
         this.id = Repository.defectCounter;
         this.summary = summary;
         this.criticality = criticality;
         this.daysToFix = daysToFix;
-        //defectCounter++;
+        this.attachment = attachment;
     }
 
     public String getInfo() {
@@ -20,8 +21,8 @@ public class Defect {
                 ".\nРезюме: " + this.summary +
                 ".\nКритичность: " + this.criticality +
                 ".\nКолличество дней на исправление: " + this.daysToFix +
+                attachment.asString() +
                 ".\n-----------------------------------------------------\n");
     }
-
 
 }

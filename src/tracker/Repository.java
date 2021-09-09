@@ -10,7 +10,7 @@ public class Repository {
     }
 
     void add(Defect defect) {
-       this.defectList[defectCounter] = defect;
+        this.defectList[defectCounter] = defect;
         defectCounter++;
     }
 
@@ -32,7 +32,7 @@ public class Repository {
         return defectList;
     }
 
-    public static int getDefectCounter(){
+    public static int getDefectCounter() {
         return defectCounter;
     }
 }
