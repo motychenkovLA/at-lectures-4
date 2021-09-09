@@ -9,6 +9,7 @@ public class Repository {
         this.defectList = new Defect[LIMIT];
     }
 
+
     void add(Defect defect) {
         this.defectList[defectCounter] = defect;
         defectCounter++;
