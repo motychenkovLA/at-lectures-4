@@ -29,10 +29,30 @@ public class Main {
 
                     System.out.println("Дефект сохранен");
 
+                    System.out.println("Введите тип вложения: \n1.Для ввода комментария введите comment \n2.Указать ссылку на другой дефект введите link");
+                    Attachment attachment = new Attachment();
+                    Scanner scanner = new Scanner(System.in);
+                    switch (scanner.nextLine()){
+                        case "comment":
+                            System.out.println("Введите комментарий:");
+                            attachment = new CommentAttachment(scanner.nextLine());
+                            System.out.println();
+                            break;
+                        case "link":
+                            System.out.println("Введите ссылку на другой дефект:");
+                            attachment = new DefectAttachment(scanner.nextInt());
+                            scanner.nextLine();
+                            System.out.println();
+                            break;
+                        default:
+                            System.out.println("Команда не распознана. Попробуйте снова.");
+                            break;
+                    }
+
                     if (repository.isFull()) {
                         System.out.println("Невозможно добавить дефект. Количество дефектов, которые могут храниться: " + LIMIT_DEF);
                     } else {
-                        repository.add(new Defect(errorSummary,errorCriticality,fixDays));
+                        repository.add(new Defect(errorSummary,errorCriticality,fixDays,attachment));
                     };
                     break;
                 case "list":

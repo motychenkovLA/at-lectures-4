@@ -6,19 +6,21 @@ public class Defect {
     private String errorSummary;
     private String errorCriticality;
     private int fixDays;
+    private Attachment attachment;
 
-    public Defect(String errorSummary, String errorCriticality, int fixDays) {
+    public Defect(String errorSummary, String errorCriticality, int fixDays, Attachment attachment) {
         this.id = enumeratorDef;
         this.errorSummary = errorSummary;
         this.errorCriticality = errorCriticality;
         this.fixDays = fixDays;
+        this.attachment = attachment;
         enumeratorDef++;
     }
 
     public String list() {
         return "Номер дефекта: " + this.id + "| Резюме дефекта: " + this.errorSummary +
                 "| Серьезность: " + this.errorCriticality + "| Количество дней на исправление: " +
-                this.fixDays + "\n";
+                this.fixDays + attachment.asString() + "\n";
 
     }
 
@@ -42,6 +44,10 @@ public class Defect {
         return fixDays;
     }
 
+    public Attachment getAttachment() {
+        return attachment;
+    }
+
     public void setEnumeratorDef(int enumeratorDef) {
         this.enumeratorDef = enumeratorDef;
     }
@@ -60,5 +66,9 @@ public class Defect {
 
     public void setFixDays(int fixDays) {
         this.fixDays = fixDays;
+    }
+
+    public void setAttachment(Attachment attachment) {
+        this.attachment = attachment;
     }
 }
