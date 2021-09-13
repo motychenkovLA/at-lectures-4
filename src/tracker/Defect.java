@@ -1,5 +1,7 @@
 package tracker;
 
+import java.util.Objects;
+
 public class Defect {
     private static int defectCounter = 0;
     private final long id;
@@ -23,6 +25,19 @@ public class Defect {
     public String getInfo() {
         return ("\nНомер: " + this.id + "\nРезюме: " + this.resume + "\nСерьезность: "
                 + this.criticality.getRuName() + "\nКоличество дней на исправление: " + this.daysToFix + "\n" + attachment + "\nСтатус: " + this.status.getRuName() + "\n");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        return daysToFix == defect.daysToFix && resume.equals(defect.resume) && criticality == defect.criticality && attachment.equals(defect.attachment) && status == defect.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(resume, criticality, daysToFix, attachment, status);
     }
 
     public void setStatus(Status status) {
