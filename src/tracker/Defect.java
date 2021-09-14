@@ -22,7 +22,8 @@ public class Defect {
         defectCounter++;
     }
 
-    public String getInfo() {
+    @Override
+    public String toString() {
         return ("\nНомер: " + this.id + "\nРезюме: " + this.resume + "\nСерьезность: "
                 + this.criticality.getRuName() + "\nКоличество дней на исправление: " + this.daysToFix + "\n" + attachment + "\nСтатус: " + this.status.getRuName() + "\n");
     }

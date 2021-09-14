@@ -15,24 +15,18 @@ public class Repository {
         defectCount++;
     }
 
-    public String getAll() {
-        StringBuilder defectsListInfo = new StringBuilder();
-        if (defectCount == 0) {
-            defectsListInfo = new StringBuilder("\nВ систему еще не добавлено ни одного дефекта\n");
-        } else {
-            for (int i = 0; i < defectCount; i++) {
-                defectsListInfo.append(defectsList[i].getInfo());
-            }
-        }
-        return defectsListInfo.toString();
-    }
-
     public boolean isFull() {
         return defectCount >= repositorySize;
     }
 
+    public boolean isEmpty(){
+       return defectCount == 0;
+    }
+
     public Defect[] getDefectsList() {
-        return defectsList;
+        Defect[] result = new Defect[defectCount];
+        System.arraycopy(defectsList, 0,result, 0, defectCount);
+        return result;
     }
 
     public int getDefectCount() {

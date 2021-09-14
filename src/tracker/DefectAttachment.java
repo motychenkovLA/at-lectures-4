@@ -9,6 +9,7 @@ public class DefectAttachment extends Attachment {
         this.id = id;
     }
 
+    @Override
     public String toString() {
         return "Ссылка на дефект: " + id;
     }

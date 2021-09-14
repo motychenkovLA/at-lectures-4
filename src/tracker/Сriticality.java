@@ -4,10 +4,9 @@ public enum Сriticality {
     HIGHEST("Критический"),
     HIGH("Высокий"),
     MEDIUM("Средний"),
-    LOW("Низкий"),
-    DEFAULT("Не указана");
+    LOW("Низкий");
 
-    private String ruName;
+    private final String ruName;
 
     Сriticality(String ruName) {
         this.ruName = ruName;
