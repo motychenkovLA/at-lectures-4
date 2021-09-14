@@ -1,15 +1,13 @@
 package tracker;
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-    private final static int REPOSITORY_SIZE = 10;
+    private final static int REPOSITORY_SIZE = 2;
     private static final Repository repository = new Repository(REPOSITORY_SIZE);
 
 
-
-    public static void main(String[] args){
+    public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
             boolean keepRunning = true;
             while (keepRunning) {
@@ -38,11 +36,11 @@ public class Main {
         if (repository.isEmpty()) {
             System.out.println("В систему еще не добавлено ни одного дефекта");
         } else {
-            for (Defect defect : repository.getDefectsList()) {
+            for (Defect defect : repository.getDefectsList())
                 System.out.println(defect.toString());
-            }
         }
     }
+
 
     static Command getCommand(Scanner scanner) {
         System.out.println("Главное меню:" +
@@ -80,11 +78,11 @@ public class Main {
             try {
                 System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
                 daysToFix = Integer.parseInt(scanner.nextLine());
-                if(daysToFix<1) throw new NegativeNumberException("Количество дней не может быть меньше 1");
+                if (daysToFix < 1) throw new NegativeNumberException("Количество дней не может быть меньше 1");
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Команда не распознана.");
-            } catch (NegativeNumberException e){
+            } catch (NegativeNumberException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -134,20 +132,26 @@ public class Main {
             try {
                 System.out.println("Введите ИД дефекта:");
                 id = Integer.parseInt(scanner.nextLine());
-                if(id<0) throw new NegativeNumberException("ИД дефекта не может быть меньше 0");
+                if (id < 0) throw new NegativeNumberException("ИД дефекта не может быть меньше 0");
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Команда не распознана.");
-            } catch (NegativeNumberException e){
+            } catch (NegativeNumberException e) {
                 System.out.println(e.getMessage());
             }
         }
         if (id < repository.getDefectCount()) {
             while (true) {
                 try {
-                    System.out.println("Текущий статус: " + repository.getDefectsList()[id].getStatus() + "\nВведите новый статус: " + Arrays.toString(Status.values()));
-                    repository.getDefectsList()[id].setStatus(Status.valueOf(scanner.nextLine().toUpperCase()));
-                    break;
+                    Status oldStatus = repository.getDefectsList().get(id).getStatus();
+                    System.out.println("Текущий статус: " + oldStatus + "\nВведите новый статус: " + Arrays.toString(Status.values()));
+                    Status newStatus = Status.valueOf(scanner.nextLine().toUpperCase());
+                    if(Transition.isValidTransitions(new Transition(oldStatus, newStatus))){
+                        repository.getDefectsList().get(id).setStatus(newStatus);
+                        break;
+                    } else {
+                        System.out.println("Изменение статуса на " + newStatus + " недопустимо");
+                    }
                 } catch (IllegalArgumentException e) {
                     System.out.println("Команда не распознана.");
                 }
@@ -159,8 +163,8 @@ public class Main {
         System.out.println();
     }
 
-    static class NegativeNumberException extends Exception{
-        public NegativeNumberException(String message){
+    static class NegativeNumberException extends Exception {
+        public NegativeNumberException(String message) {
             super(message);
         }
     }
