@@ -4,6 +4,8 @@ package tracker;
 import tracker.enums.Critical;
 import tracker.enums.Status;
 
+import java.util.Objects;
+
 public class Defect {
     private static long maxId;
     private long id;
@@ -61,6 +63,19 @@ public class Defect {
 
     public long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Defect defect = (Defect) o;
+        return id == defect.id && workMoreWeek == defect.workMoreWeek && willTakeMoreWeek == defect.willTakeMoreWeek && Objects.equals(defectSummary, defect.defectSummary) && criticalityDefect == defect.criticalityDefect && statusDefect == defect.statusDefect && Objects.equals(attachment, defect.attachment);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, defectSummary, criticalityDefect, statusDefect, workMoreWeek, willTakeMoreWeek, attachment);
     }
 
     @Override
