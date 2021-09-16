@@ -1,7 +1,7 @@
 package tracker;
 
 public class Attachment {
-    public String asString() {
+    public String toString() {
         return "Не добавлен комментарий или ссылка на дефект";
     }
 }

@@ -7,7 +7,7 @@ public class CommentAttachment extends Attachment{
         this.comment = comment;
     }
 
-    public String asString() {
+    public String toString() {
         return "Комментарий к дефекту: " + comment;
     }
 }

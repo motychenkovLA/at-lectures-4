@@ -1,74 +1,36 @@
 package tracker;
 
 public class Defect {
-    private int enumeratorDef = 0;
-    private long id;
+    private static int defectCounter = 0;
+    private final long id;
     private String errorSummary;
-    private String errorCriticality;
+    private Criticality criticality;
     private int fixDays;
     private Attachment attachment;
+    private Status status;
 
-    public Defect(String errorSummary, String errorCriticality, int fixDays, Attachment attachment) {
-        this.id = enumeratorDef;
+    public Defect(String errorSummary, Criticality criticality, int fixDays, Attachment attachment) {
+        this.id = defectCounter;
         this.errorSummary = errorSummary;
-        this.errorCriticality = errorCriticality;
+        this.criticality = criticality;
         this.fixDays = fixDays;
         this.attachment = attachment;
-        enumeratorDef++;
+        this.status = Status.OPEN;
+        defectCounter++;
     }
 
-    public String list() {
-        return "Номер дефекта: " + this.id + "| Резюме дефекта: " + this.errorSummary +
-                "| Серьезность: " + this.errorCriticality + "| Количество дней на исправление: " +
-                this.fixDays + attachment.asString() + "\n";
+    public String listInfo() {
+        return ("Номер дефекта: " + this.id + "| Резюме дефекта: " + this.errorSummary +
+                "| Серьезность: " + this.criticality.getRuName() + "| Количество дней на исправление: " +
+                this.fixDays + attachment.toString() + "\n" + "Статус: " + this.status.getRuName() + "\n");
 
     }
 
-    public int getEnumeratorDef() {
-        return enumeratorDef;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public String getErrorSummary() {
-        return errorSummary;
-    }
-
-    public String getErrorCriticality() {
-        return errorCriticality;
-    }
-
-    public int getFixDays() {
-        return fixDays;
-    }
-
-    public Attachment getAttachment() {
-        return attachment;
-    }
-
-    public void setEnumeratorDef(int enumeratorDef) {
-        this.enumeratorDef = enumeratorDef;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setErrorSummary(String errorSummary) {
-        this.errorSummary = errorSummary;
-    }
-
-    public void setErrorCriticality(String errorCriticality) {
-        this.errorCriticality = errorCriticality;
-    }
-
-    public void setFixDays(int fixDays) {
-        this.fixDays = fixDays;
-    }
-
-    public void setAttachment(Attachment attachment) {
-        this.attachment = attachment;
+    public Status getStatus() {
+        return status;
     }
 }

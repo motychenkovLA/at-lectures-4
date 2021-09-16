@@ -7,7 +7,7 @@ public class DefectAttachment extends Attachment{
         this.id = id;
     }
 
-    public String asString() {
+    public String toString() {
         return "Ссылка на дефект: " + id;
     }
 }
