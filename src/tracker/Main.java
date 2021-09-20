@@ -3,7 +3,7 @@ package tracker;
 import java.util.*;
 
 public class Main {
-    private final static int REPOSITORY_SIZE = 2;
+    private final static int REPOSITORY_SIZE = 10;
     private static final Repository repository = new Repository(REPOSITORY_SIZE);
 
 
@@ -25,6 +25,9 @@ public class Main {
                     case CHANGE:
                         changeStatus(scanner);
                         break;
+                    case STATS:
+                        showStats();
+                        break;
                 }
             }
         }
@@ -41,13 +44,29 @@ public class Main {
         }
     }
 
+    static void showStats() {
+        if (!repository.isEmpty()) {
+            System.out.println("Количество дней на исправление дефекта:");
+            System.out.println("* Максимальное - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).max().getAsInt());
+            System.out.println("* Среднее - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).average().getAsDouble());
+            System.out.println("* Минимальное - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).min().getAsInt());
+            System.out.println();
+            for (Status status : Status.values()) {
+                System.out.println("Статус: " + status.getRuName() + "\nКоличество дефектов: "
+                        + repository.getDefectsList().stream()
+                        .filter(defect -> defect.getStatus() == status).count());
+                System.out.println();
+            }
+        } else System.out.println("В систему еще не добавлено ни одного дефекта");
+    }
 
     static Command getCommand(Scanner scanner) {
         System.out.println("Главное меню:" +
                 "\n1.Добавить новый дефект (Введите \"ADD\")," +
                 "\n2.Вывести список дефектов (Введите \"LIST\")," +
                 "\n3.Изменить статус дефекта (Введите \"CHANGE\")," +
-                "\n4.Выйти из программы (Введите \"QUIT\")\n");
+                "\n4.Вывести статистику по заведенным дефектам (Введите \"STATS\")," +
+                "\n5.Выйти из программы (Введите \"QUIT\")\n");
         while (true) {
             try {
                 System.out.println("Введите команду:");
@@ -146,7 +165,7 @@ public class Main {
                     Status oldStatus = repository.getDefectsList().get(id).getStatus();
                     System.out.println("Текущий статус: " + oldStatus + "\nВведите новый статус: " + Arrays.toString(Status.values()));
                     Status newStatus = Status.valueOf(scanner.nextLine().toUpperCase());
-                    if(Transition.isValidTransitions(new Transition(oldStatus, newStatus))){
+                    if (Transition.isValidTransitions(new Transition(oldStatus, newStatus))) {
                         repository.getDefectsList().get(id).setStatus(newStatus);
                         break;
                     } else {

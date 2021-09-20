@@ -11,7 +11,6 @@ public class Defect {
     private Attachment attachment;
     private Status status;
 
-
     public Defect(String resume, Сriticality criticality, int daysToFix, Attachment attachment) {
         this.id = defectCounter;
         this.resume = resume;
@@ -47,5 +46,9 @@ public class Defect {
 
     public Status getStatus() {
         return status;
+    }
+
+    public int getDaysToFix() {
+        return daysToFix;
     }
 }
