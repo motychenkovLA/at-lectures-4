@@ -15,24 +15,18 @@ public class Repository {
         enumeratorDef++;
     }
 
-    String getAll() {
-        StringBuilder list = new StringBuilder();
-        if (enumeratorDef == 0) {
-            list = new StringBuilder("Дефекты отсутствуют");
-        } else {
-            for (int i = 0; i < enumeratorDef; i++) {
-                list.append(errorList[i].listInfo());
-            }
-        }
-        return list.toString();
-    }
-
     public boolean isFull() {
         return enumeratorDef >= sizeRepository;
     }
 
+    public boolean isEmpty() {
+        return enumeratorDef==0;
+    }
+
     public Defect[] getErrorList() {
-        return errorList;
+        Defect[] result = new Defect[enumeratorDef];
+        System.arraycopy(errorList,0,result,0,enumeratorDef);
+        return result;
     }
 
     public  int getEnumeratorDef() {

@@ -5,8 +5,8 @@ public enum Criticality {
     CRITICAL("Критический"),
     MAJOR("Значительный"),
     MINOR("Незначительный"),
-    TRIVIAL("Тривиальный"),
-    DEFAULT("Не указана");
+    TRIVIAL("Тривиальный");
+
 
     private String ruName;
 
