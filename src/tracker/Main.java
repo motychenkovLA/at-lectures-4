@@ -1,9 +1,10 @@
 package tracker;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
-    private final static int REPOSITORY_SIZE = 10;
+    private final static int REPOSITORY_SIZE = 5;
     private static final Repository repository = new Repository(REPOSITORY_SIZE);
 
 
@@ -46,18 +47,24 @@ public class Main {
 
     static void showStats() {
         if (!repository.isEmpty()) {
+            IntSummaryStatistics intSummaryStatistics = repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).summaryStatistics();
             System.out.println("Количество дней на исправление дефекта:");
-            System.out.println("* Максимальное - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).max().getAsInt());
-            System.out.println("* Среднее - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).average().getAsDouble());
-            System.out.println("* Минимальное - " + repository.getDefectsList().stream().mapToInt(Defect::getDaysToFix).min().getAsInt());
+            System.out.println("* Максимальное - " + intSummaryStatistics.getMax());
+            System.out.println("* Среднее - " + intSummaryStatistics.getAverage());
+            System.out.println("* Минимальное - " + intSummaryStatistics.getMin());
             System.out.println();
-            for (Status status : Status.values()) {
-                System.out.println("Статус: " + status.getRuName() + "\nКоличество дефектов: "
-                        + repository.getDefectsList().stream()
-                        .filter(defect -> defect.getStatus() == status).count());
-                System.out.println();
+            Map<Status, List<Defect>> result = repository.getDefectsList().stream().collect(Collectors.groupingBy(Defect::getStatus));
+            for (Status status:Status.values()){
+                if (result.containsKey(status)) {
+                    System.out.println("Статус: " + status);
+                    System.out.println("Количество дефектов: " + result.get(status).size());
+                }else {
+                    System.out.println("Статус: " + status);
+                    System.out.println("Количество дефектов: " + 0);
+                }
             }
         } else System.out.println("В систему еще не добавлено ни одного дефекта");
+        System.out.println();
     }
 
     static Command getCommand(Scanner scanner) {
@@ -97,12 +104,13 @@ public class Main {
             try {
                 System.out.println("Введите ожидаемое количество дней на исправление дефекта:");
                 daysToFix = Integer.parseInt(scanner.nextLine());
-                if (daysToFix < 1) throw new NegativeNumberException("Количество дней не может быть меньше 1");
+                if (daysToFix < 1) {
+                    System.out.println("Количество дней не может быть меньше 1");
+                    continue;
+                }
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Команда не распознана.");
-            } catch (NegativeNumberException e) {
-                System.out.println(e.getMessage());
             }
         }
         return new Defect(resume, criticality, daysToFix, createAttachment(scanner));
@@ -151,15 +159,16 @@ public class Main {
             try {
                 System.out.println("Введите ИД дефекта:");
                 id = Integer.parseInt(scanner.nextLine());
-                if (id < 0) throw new NegativeNumberException("ИД дефекта не может быть меньше 0");
+                if (id < 0) {
+                    System.out.println("ИД дефекта не может быть меньше 0");
+                    continue;
+                }
                 break;
             } catch (NumberFormatException e) {
                 System.out.println("Команда не распознана.");
-            } catch (NegativeNumberException e) {
-                System.out.println(e.getMessage());
             }
         }
-        if (id < repository.getDefectCount()) {
+        if (id < repository.getDefectsList().size()) {
             while (true) {
                 try {
                     Status oldStatus = repository.getDefectsList().get(id).getStatus();
@@ -174,7 +183,6 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     System.out.println("Команда не распознана.");
                 }
-
             }
         } else {
             System.out.println("Дефект не найден");
@@ -182,9 +190,5 @@ public class Main {
         System.out.println();
     }
 
-    static class NegativeNumberException extends Exception {
-        public NegativeNumberException(String message) {
-            super(message);
-        }
-    }
+
 }

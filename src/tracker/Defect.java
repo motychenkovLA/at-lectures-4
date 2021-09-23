@@ -51,4 +51,8 @@ public class Defect {
     public int getDaysToFix() {
         return daysToFix;
     }
+
+    public long getId() {
+        return id;
+    }
 }

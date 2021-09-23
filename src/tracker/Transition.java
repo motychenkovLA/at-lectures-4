@@ -7,6 +7,14 @@ import java.util.Set;
 public class Transition {
     private final Status from;
     private final Status to;
+    static Set<Transition> transitions = new HashSet<>();
+
+    static {
+        transitions.add(new Transition(Status.OPEN, Status.ASSIGNED));
+        transitions.add(new Transition(Status.ASSIGNED, Status.FIXED));
+        transitions.add(new Transition(Status.FIXED, Status.VERIFIED));
+        transitions.add(new Transition(Status.VERIFIED, Status.CLOSED));
+    }
 
     public Transition(Status from, Status to) {
         this.from = from;
@@ -27,11 +35,6 @@ public class Transition {
     }
 
     public static boolean isValidTransitions(Transition transition) {
-        Set<Transition> transitions = new HashSet<>();
-        transitions.add(new Transition(Status.OPEN, Status.ASSIGNED));
-        transitions.add(new Transition(Status.ASSIGNED, Status.FIXED));
-        transitions.add(new Transition(Status.FIXED, Status.VERIFIED));
-        transitions.add(new Transition(Status.VERIFIED, Status.CLOSED));
         return transitions.contains(transition);
     }
 }

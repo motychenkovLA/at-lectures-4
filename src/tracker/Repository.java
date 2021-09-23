@@ -8,38 +8,26 @@ import java.util.Map;
 public class Repository {
     private Map<Long, Defect> defectsList;
     private int repositorySize;
-    private long defectCount = 0L;
+    // private long defectCount = 0L;
 
     public Repository(int repositorySize) {
-
         this.defectsList = new HashMap<>();
         this.repositorySize = repositorySize;
     }
 
     public void add(Defect defect) {
-        defectsList.put(defectCount, defect);
-        defectCount++;
+        defectsList.put(defect.getId(), defect);
     }
 
     public boolean isFull() {
-        return defectCount >= repositorySize;
+        return defectsList.size() >= repositorySize;
     }
 
     public boolean isEmpty() {
-        return defectCount == 0;
+        return defectsList.size() == 0;
     }
 
     public List<Defect> getDefectsList() {
-        List<Defect> defects = new ArrayList<>();
-        for (Map.Entry<Long, Defect> defect: defectsList.entrySet()){
-            defects.add(defect.getValue());
-        }
-        return defects;
+        return new ArrayList<>(defectsList.values());
     }
-
-    public long getDefectCount() {
-        return defectCount;
-    }
-
-
 }
