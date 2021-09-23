@@ -8,7 +8,6 @@ import java.util.Map;
 public class Repository {
     private Map<Long, Defect> defectsList;
     private int repositorySize;
-    // private long defectCount = 0L;
 
     public Repository(int repositorySize) {
         this.defectsList = new HashMap<>();
