@@ -1,11 +1,11 @@
 package tracker;
 import java.util.Scanner;
 
-public class Tracking8 extends MethodAdd {
+
+public class Tracking8 {
     public static void main(String[] args) {
         boolean flag = true;
-        Repository repository = new Repository(repoLength);
-        try (ClassScan classScan = new ClassScan()) {
+        Repository repository = new Repository(10);
             do {
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Введите команду(add|list|quit|change): ");
@@ -13,16 +13,16 @@ public class Tracking8 extends MethodAdd {
                 com = scanner.nextLine().toLowerCase().trim();
                 switch (com) {
                     case "add":
-                        add(repository, scanner);
+                        repository.add();
                         break;
                     case "list":
-                        list(repository);
+                        repository.list();
                         break;
                     case "quit":
                         flag = false;
                         break;
                     case "change":
-                        change(repository, scanner);
+                        repository.change();
                         break;
                     default:
                         System.out.println("Не верная команда!");
@@ -31,8 +31,5 @@ public class Tracking8 extends MethodAdd {
                 }
 
             } while (flag);
-        }catch (Exception e){
-            System.out.println("Вы ввели не верную команду!" + e);
         }
     }
-}
