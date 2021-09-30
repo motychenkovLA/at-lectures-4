@@ -7,7 +7,7 @@ public enum Status {
     VERIFIED("Исправление подтверждено"),
     CLOSED("Закрыто");
 
-    private String ruName;
+    private final String ruName;
 
     Status(String ruName) {
         this.ruName = ruName;

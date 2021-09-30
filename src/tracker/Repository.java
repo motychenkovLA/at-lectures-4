@@ -17,26 +17,18 @@ public class Repository {
         counter++;
     }
 
-    String getAll() {
-        StringBuilder list = new StringBuilder();
-        if (counter == 0) {
-            list = new StringBuilder("Дефекты отсутствуют.\n");
-        } else {
-            while (inputCounter < counter) {
-                list.append(defectList[inputCounter].getInfoOfDefect());
-                inputCounter++;
-            }
-            inputCounter = 0;
-        }
-        return list.toString();
-    }
-
     public boolean isFull() {
         return counter >= repositorySize;
     }
 
+    public boolean isEmpty(){
+        return counter == 0;
+    }
+
     public Defect[] getDefectsList() {
-        return defectList;
+        Defect[] result = new Defect[counter];
+        System.arraycopy(defectList, 0,result, 0, counter);
+        return result;
     }
 
     public int getDefectCount() {
