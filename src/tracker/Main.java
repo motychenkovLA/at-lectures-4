@@ -1,8 +1,7 @@
 package tracker;
 
 
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     private final  static int LIMIT_DEF= 10;
@@ -142,9 +141,15 @@ public class Main {
             if (id < repository.getEnumeratorDef()) {
                 while (true) {
                     try {
-                        System.out.println("Текущий статус: " + repository.getErrorList()[id].getStatus() + "\nВведите новый статус: " + Arrays.toString(Status.values()));
-                        repository.getErrorList()[id].setStatus(Status.valueOf(scanner.nextLine().toUpperCase()));
-                        break;
+                        Status oldStatus = repository.getErrorList().get(id).getStatus();
+                        System.out.println("Текущий статус: " + oldStatus + "\nВведите новый статус: " + Arrays.toString(Status.values()));
+                        Status newStatus = Status.valueOf(scanner.nextLine().toUpperCase());
+                        if(Transition.isValidTransitions(new Transition(oldStatus, newStatus))){
+                            repository.getErrorList().get(id).setStatus(newStatus);
+                            break;
+                        } else {
+                            System.out.println("Изменение статуса на " + newStatus + " недопустимо");
+                        }
                     } catch (IllegalArgumentException e) {
                         System.out.println("Команда не распознана.");
                     }

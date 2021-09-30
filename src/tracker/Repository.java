@@ -1,17 +1,22 @@
 package tracker;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Repository {
-    private Defect[] errorList;
+    private Map <Long, Defect> errorList;
     private int sizeRepository;
-    private int enumeratorDef = 0;
+    private long enumeratorDef = 0L;
 
     public Repository (int sizeRepository) {
-        this.errorList = new Defect[sizeRepository];
+        this.errorList = new HashMap<>();
         this.sizeRepository = sizeRepository;
     }
 
     void add(Defect defect) {
-        this.errorList[enumeratorDef] = defect;
+        errorList.put(enumeratorDef, defect);
         enumeratorDef++;
     }
 
@@ -23,13 +28,15 @@ public class Repository {
         return enumeratorDef==0;
     }
 
-    public Defect[] getErrorList() {
-        Defect[] result = new Defect[enumeratorDef];
-        System.arraycopy(errorList,0,result,0,enumeratorDef);
-        return result;
+    public List<Defect> getErrorList() {
+        List<Defect> defects = new ArrayList<>();
+        for (Map.Entry<Long, Defect> defect: errorList.entrySet()){
+            defects.add(defect.getValue());
+        }
+        return defects;
     }
 
-    public  int getEnumeratorDef() {
+    public  long getEnumeratorDef() {
         return enumeratorDef;
     }
 }
