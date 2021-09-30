@@ -26,6 +26,15 @@ public class Defect {
         this.criticalityDefect = criticalityDefect;
         this.workMoreWeek = workMoreWeek;
         this.attachment = attachment;
+        this.statusDefect = Status.OPEN;
+    }
+
+    public Status getStatusDefect() {
+        return statusDefect;
+    }
+
+    public int getWorkMoreWeek() {
+        return workMoreWeek;
     }
 
     @Override
@@ -38,5 +47,11 @@ public class Defect {
                 ", \n\r workMoreWeek=" + workMoreWeek +
                 ", \n\r attachment=" + attachment +
                 '}';
+    }
+
+    public static int compare (Defect d1, Defect d2){
+        if(d1.getWorkMoreWeek() > d2.getWorkMoreWeek())
+            return 1;
+        return -1;
     }
 }
