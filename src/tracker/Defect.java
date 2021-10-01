@@ -38,6 +38,7 @@ public class Defect {
         Defect defect = (Defect) o;
         return leadTime == defect.leadTime && summary.equals(defect.summary) && priority == defect.priority && attachment.equals(defect.attachment) && status == defect.status;
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(summary, priority, leadTime, attachment, status);

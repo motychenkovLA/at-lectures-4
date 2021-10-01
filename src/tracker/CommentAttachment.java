@@ -13,6 +13,7 @@ public class CommentAttachment extends Attachment {
     public String toString() {
         return "Комментарий: " + comment;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -20,6 +21,7 @@ public class CommentAttachment extends Attachment {
         CommentAttachment that = (CommentAttachment) o;
         return comment.equals(that.comment);
     }
+
     @Override
     public int hashCode() {
         return Objects.hash(comment);

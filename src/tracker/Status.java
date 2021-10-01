@@ -1,5 +1,8 @@
 package tracker;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public enum Status {
     OPEN("Открыто"),
     ASSIGNED("Назначено на"),

@@ -1,19 +1,25 @@
 package tracker;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public class Repository {
-    private Defect[] defectList;
+    private Map<Long, Defect> defectsList;
     private int repositorySize;
     private int inputCounter = 0;
-    static int counter = 0;
+    static long counter = 0L;
 
     public Repository(int repositorySize) {
-        this.defectList = new Defect[repositorySize];
+        this.defectsList = new HashMap<>();
         this.repositorySize = repositorySize;
 
     }
 
     void add(Defect defect) {
-        this.defectList[counter] = defect;
+        defectsList.put(counter, defect);
         counter++;
     }
 
@@ -21,17 +27,19 @@ public class Repository {
         return counter >= repositorySize;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return counter == 0;
     }
 
-    public Defect[] getDefectsList() {
-        Defect[] result = new Defect[counter];
-        System.arraycopy(defectList, 0,result, 0, counter);
-        return result;
+    public List<Defect> getDefectsList() {
+        List<Defect> defects = new ArrayList<>();
+        for (Map.Entry<Long, Defect> defect : defectsList.entrySet()) {
+            defects.add(defect.getValue());
+        }
+        return defects;
     }
 
-    public int getDefectCount() {
+    public long getDefectCount() {
         return counter;
     }
 }
