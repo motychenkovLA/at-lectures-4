@@ -51,4 +51,9 @@ public class Defect {
     public Status getStatus() {
         return status;
     }
+
+    public int getLeadTime() {
+        return leadTime;
+    }
+
 }

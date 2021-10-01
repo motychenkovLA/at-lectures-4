@@ -1,9 +1,10 @@
 package tracker;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
-    private static final int REPO_SIZE = 2;
+    private static final int REPO_SIZE = 10;
     private static final Repository repository = new Repository(REPO_SIZE);
 
     public static void main(String[] args) {
@@ -22,6 +23,9 @@ public class Main {
                     case CHANGE:
                         changeStatus(scanner);
                         break;
+                    case STATS:
+                        showStats();
+                        break;
                     case QUIT:
                         System.out.println("Выход из программы");
                         continueProgram = false;
@@ -32,7 +36,11 @@ public class Main {
     }
 
     static Command getCommand(Scanner scanner) {
-        System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). \n 2.Вывести список дефектов (Введите list). \n 3.Изменить статус дефекта (Введите change) \n 4.Выйти из программы (Введите quit).\n");
+        System.out.println("Меню: \n 1.Добавить новый дефект (Введите add). " +
+                "\n 2.Вывести список дефектов (Введите list)." +
+                " \n 3.Изменить статус дефекта (Введите change) " +
+                "\n 4. Вывести статистику по заведенным дефектам (Введите STATS)," +
+                "\n 4.Выйти из программы (Введите quit).\n");
         while (true) {
             try {
                 System.out.println("Введите команду:");
@@ -53,6 +61,27 @@ public class Main {
                 System.out.println(defect.toString());
 
         }
+    }
+
+    static void showStats() {
+        if (!repository.isEmpty()) {
+            IntSummaryStatistics intSummaryStatistics = repository.getDefectsList().stream().mapToInt(Defect::getLeadTime).summaryStatistics();
+            System.out.println("Количество дней на исправление дефекта:");
+            System.out.println("* Максимальное - " + intSummaryStatistics.getMax());
+            System.out.println("* Среднее - " + intSummaryStatistics.getAverage());
+            System.out.println("* Минимальное - " + intSummaryStatistics.getMin());
+            System.out.println();
+            Map<Status, List<Defect>> result = repository.getDefectsList().stream().collect(Collectors.groupingBy(Defect::getStatus));
+            for (Status status : Status.values()) {
+                if (result.containsKey(status)) {
+                    System.out.println("Статус: " + status);
+                    System.out.println("Количество дефектов: " + result.get(status).size());
+                } else {
+                    System.out.println("Статус: " + status);
+                    System.out.println("Количество дефектов: " + 0);
+                }
+            }
+        } else System.out.println("В систему еще не добавлено ни одного дефекта");
     }
 
     static Defect createDefect(Scanner scanner) {

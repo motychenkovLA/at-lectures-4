@@ -4,6 +4,7 @@ package tracker;
         ADD,
         LIST,
         CHANGE,
+        STATS,
         QUIT
     }
 
