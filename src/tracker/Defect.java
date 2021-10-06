@@ -46,4 +46,12 @@ public class Defect {
     public Status getStatus() {
         return status;
     }
+
+    public int getFixDays() {
+        return fixDays;
+    }
+
+    public long getId() {
+        return id;
+    }
 }

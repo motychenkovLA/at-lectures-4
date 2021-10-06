@@ -8,7 +8,7 @@ import java.util.Map;
 public class Repository {
     private Map <Long, Defect> errorList;
     private int sizeRepository;
-    private long enumeratorDef = 0L;
+
 
     public Repository (int sizeRepository) {
         this.errorList = new HashMap<>();
@@ -16,27 +16,21 @@ public class Repository {
     }
 
     void add(Defect defect) {
-        errorList.put(enumeratorDef, defect);
-        enumeratorDef++;
+        errorList.put(defect.getId(), defect);
+
     }
 
     public boolean isFull() {
-        return enumeratorDef >= sizeRepository;
+        return errorList.size() >= sizeRepository;
     }
 
     public boolean isEmpty() {
-        return enumeratorDef==0;
+        return errorList.size()==0;
     }
 
     public List<Defect> getErrorList() {
-        List<Defect> defects = new ArrayList<>();
-        for (Map.Entry<Long, Defect> defect: errorList.entrySet()){
-            defects.add(defect.getValue());
-        }
-        return defects;
+        return new ArrayList<>(errorList.values());
     }
 
-    public  long getEnumeratorDef() {
-        return enumeratorDef;
-    }
+
 }

@@ -4,5 +4,6 @@ public enum Menu {
     ADD,
     LIST,
     QUIT,
-    CHANGE
+    CHANGE,
+    STATS
 }
