@@ -22,7 +22,9 @@ public class Main {
             firstPage.search("java");
             ResultSearchPage resultSearchPage = new ResultSearchPage(driver);
             resultSearchPage.clickSearchPage();
-            WaitHelper.sleep(5);
+            WaitHelper.sleep(2);
+            WebDriverHelper webDriverHelper = new WebDriverHelper(driver);
+            webDriverHelper.switchToTab(2);
             JavaWikiPage javaWikiPage = new JavaWikiPage(driver);
             if (javaWikiPage.getLink().equals(expectedLink))
                 System.out.println("Успех. Линка верная!!!");
