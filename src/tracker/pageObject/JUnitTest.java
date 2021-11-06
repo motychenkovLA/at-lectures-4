@@ -1,13 +1,14 @@
 package tracker.pageObject;
 
 import org.junit.*;
+import org.junit.rules.Timeout;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class JUnitTest {
     private static WebDriver driver;
     @Rule
-    public org.junit.rules.Timeout timeout = org.junit.rules.Timeout.seconds(30);
+    public Timeout timeout = Timeout.seconds(30);
 
     @Before
     public void beforeMethod() {
